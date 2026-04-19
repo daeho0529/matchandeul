@@ -50,8 +50,25 @@ body {
 .blue { background: #00a0e9; } .green { background: #009944; }
 .brand-korean { font-weight: 400; font-size: 13px; color: var(--light-grey); letter-spacing: 1px; }
 
-h1 { font-family: var(--font-heading); font-size: clamp(32px, 8vw, 60px); margin: 0; letter-spacing: 6px; color: #fff; }
-.tagline { font-family: var(--font-heading); color: var(--gold); font-size: 14px; letter-spacing: 3px; margin-top: 5px; }
+/* [수정] 제목 잘림 방지: 폰트 사이즈와 자간을 유동적으로 조절 */
+h1 { 
+    font-family: var(--font-heading); 
+    font-size: clamp(28px, 8.5vw, 60px); /* 화면이 작아지면 글자 크기도 축소 */
+    margin: 0; 
+    letter-spacing: clamp(2px, 1.2vw, 6px); /* 좁은 화면에서 자간 자동 축소 */
+    color: #fff; 
+    text-align: center;
+    width: 100%;
+    word-break: keep-all; /* 단어 단위 줄바꿈 방지 */
+}
+
+.tagline { 
+    font-family: var(--font-heading); 
+    color: var(--gold); 
+    font-size: clamp(12px, 2.5vw, 14px); 
+    letter-spacing: 2px; 
+    margin-top: 5px; 
+}
 .accent-line { width: 80px; height: 1px; background: var(--gold); margin: 25px auto; }
 
 /* Menu Board Layout */
@@ -150,12 +167,13 @@ del { color: var(--light-grey); font-size: 13px; margin-right: 6px; opacity: 0.5
         grid-template-columns: 1fr; 
         gap: 20px; 
     }
-    h1 { font-size: 42px; }
+    /* h1 크기는 위에서 clamp로 조절되므로 별도 지정 불필요 */
     .main-header { margin-bottom: 40px; }
 }
 
-@media (max-width: 430px) { /* iPhone 13 Pro (390px) 대응 */
+@media (max-width: 430px) { /* iPhone 13 Pro 대응 미세 조정 */
     body { padding: 20px 15px; }
+    h1 { letter-spacing: 2px; } /* 좁은 화면에서 글자 간격 최소화 */
     .name { font-size: 16px; }
     .price { font-size: 15px; }
     .section-title { font-size: 20px; }
