@@ -1,13 +1,13 @@
 /* Color Palette & Global Variables */
 :root {
-    --gold: #c9a063; /* Champagne Gold */
+    --gold: #c9a063;
     --gold-dim: #9e7f50;
-    --dark: #121418; /* Deep Charcoal */
+    --dark: #121418;
     --dark-grey: #1e2228;
     --light-grey: #a0aab5;
-    --red: #ff4d4d; /* 선명한 강조 레드 */
-    --glass-bg: rgba(30, 34, 40, 0.6); /* Translucent Background */
-    --glass-border: rgba(201, 160, 99, 0.2);
+    --red: #ff4d4d;
+    --glass-bg: rgba(30, 34, 40, 0.75); /* 가독성을 위해 불투명도 약간 상승 */
+    --glass-border: rgba(201, 160, 99, 0.25);
     --font-heading: 'Cinzel', serif;
     --font-body: 'Noto Serif KR', serif;
 }
@@ -19,166 +19,146 @@ body {
     font-family: var(--font-body);
     font-weight: 300;
     margin: 0;
-    padding: 60px 15px;
+    padding: 40px 20px;
+    padding-top: calc(40px + env(safe-area-inset-top)); /* 아이폰 노치 대응 */
     display: flex;
     justify-content: center;
-    line-height: 1.6;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 
 .luxury-container {
-    max-width: 1200px;
+    max-width: 1100px;
     width: 100%;
-    position: relative;
 }
 
 /* Glassmorphism Effect */
 .glass-effect {
     background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border: 1px solid var(--glass-border);
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
-/* Header Design */
-.main-header { text-align: center; margin-bottom: 70px; }
-.header-top { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 15px; }
+/* Header */
+.main-header { text-align: center; margin-bottom: 50px; }
+.header-top { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; }
 .logo-group { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
-.sq { width: 11px; height: 11px; }
+.sq { width: 10px; height: 10px; }
 .red { background: #ee3124; } .orange { background: #f99d1c; }
 .blue { background: #00a0e9; } .green { background: #009944; }
-.brand-korean { font-weight: 400; font-size: 14px; color: var(--light-grey); letter-spacing: 1px; }
+.brand-korean { font-weight: 400; font-size: 13px; color: var(--light-grey); letter-spacing: 1px; }
 
-h1 { font-family: var(--font-heading); font-size: 64px; margin: 0; letter-spacing: 8px; font-weight: 700; color: #fff; }
-.tagline { font-family: var(--font-heading); color: var(--gold); font-size: 18px; margin-top: 8px; letter-spacing: 3px; }
-.accent-line { width: 120px; height: 1px; background: var(--gold); margin: 30px auto; }
+h1 { font-family: var(--font-heading); font-size: clamp(32px, 8vw, 60px); margin: 0; letter-spacing: 6px; color: #fff; }
+.tagline { font-family: var(--font-heading); color: var(--gold); font-size: 14px; letter-spacing: 3px; margin-top: 5px; }
+.accent-line { width: 80px; height: 1px; background: var(--gold); margin: 25px auto; }
 
 /* Menu Board Layout */
 .menu-board {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 70px;
-    padding: 70px;
-    margin-bottom: 40px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 60px;
+    padding: 50px;
+    margin-bottom: 30px;
 }
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: 28px;
+    font-size: 24px;
     color: var(--gold);
     text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 40px;
+    letter-spacing: 3px;
+    margin-bottom: 35px;
     position: relative;
 }
-.section-title span { background: var(--dark); padding: 0 20px; position: relative; z-index: 1; }
-.section-title::after { content: ""; position: absolute; width: 100%; height: 1px; background: var(--gold-dim); left: 0; top: 50%; opacity: 0.3; }
-
-.section-title.minimal { border: none; margin-bottom: 25px; font-size: 22px; }
-.section-title.minimal::after { display: none; }
+.section-title span { background: #1a1d22; padding: 0 15px; position: relative; z-index: 1; }
+.section-title::after { content: ""; position: absolute; width: 100%; height: 1px; background: var(--gold-dim); left: 0; top: 50%; opacity: 0.2; }
 
 .category-name { 
     color: #fff; 
-    font-size: 20px; 
-    margin: 40px 0 20px; 
+    font-size: 18px; 
+    margin: 30px 0 15px; 
     border-bottom: 1px solid var(--glass-border);
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
-/* Menu Item Styling */
+/* Menu Item Alignment Fix */
 .menu-item { 
     display: flex; 
     justify-content: space-between; 
-    align-items: flex-end; 
-    margin-bottom: 20px; 
-    padding-bottom: 8px; 
-    border-bottom: 1px dotted rgba(255,255,255,0.1);
+    align-items: flex-start; /* 모바일 정렬 뒤틀림 방지 */
+    margin-bottom: 18px; 
+    padding-bottom: 6px; 
+    border-bottom: 1px dotted rgba(255,255,255,0.15);
 }
-.menu-item.stacked { align-items: flex-start; }
-.menu-item.prices-grid { align-items: flex-start; }
 
-.name { font-weight: 400; font-size: 18px; color: #fff; display: block; }
-.name small { font-weight: 300; font-size: 13px; color: var(--gold); margin-left: 8px; }
-.desc { font-size: 13px; color: var(--light-grey); margin-left: 10px; }
-.sub-desc { font-size: 12px; color: var(--light-grey); display: block; line-height: 1.5; margin-top: 4px; width: 85%; }
-.italic { font-style: italic; }
+.item-info { flex: 1; padding-right: 15px; }
+.name { font-weight: 400; font-size: 17px; color: #fff; display: flex; align-items: baseline; flex-wrap: wrap; }
+.name small { font-weight: 300; font-size: 12px; color: var(--gold); margin-left: 6px; }
+.desc { font-size: 12px; color: var(--light-grey); margin-top: 2px; display: block; }
+.sub-desc { font-size: 11.5px; color: var(--light-grey); margin-top: 4px; line-height: 1.4; display: block; }
 
-/* 가격 폰트 최적화 */
+/* 가격 영역 고정 */
 .price { 
     font-family: var(--font-heading); 
     font-weight: 400; 
     color: #fff; 
-    font-size: 17px; 
+    font-size: 16px; 
     white-space: nowrap; 
-    margin-left: 20px;
-    letter-spacing: 0px; 
+    flex-shrink: 0; /* 가격이 찌그러지지 않게 고정 */
+    text-align: right;
+    margin-top: 2px;
 }
-.price-stack { text-align: right; font-size: 14px; color: var(--light-grey); }
-.price-stack span { display: block; margin-bottom: 2px; }
-.price-stack strong { color: #fff; font-size: 17px; margin-left: 5px; font-family: var(--font-heading); }
 
-/* Special Cuts 강조 효과 */
 .special-highlight { 
-    position: relative; 
     border-left: 3px solid var(--red); 
-    padding-left: 15px;
-    background: rgba(255, 77, 77, 0.05);
+    padding-left: 12px;
+    background: rgba(255, 77, 77, 0.07);
 }
-.order-notice { 
-    display: block; 
-    color: var(--red); 
-    font-size: 11px; 
-    font-weight: 700; 
-    margin-top: 5px; 
-    letter-spacing: 0.5px; 
-}
+.order-notice { color: var(--red); font-size: 10.5px; font-weight: 700; margin-top: 4px; display: block; }
 
-/* Ordering Guide 스타일 */
+/* Ordering Guide */
 .ordering-guide-v2 {
-    margin-top: 40px;
+    margin-top: 30px;
     padding: 20px;
     border: 1px solid var(--glass-border);
-    background: rgba(201, 160, 99, 0.05);
+    background: rgba(201, 160, 99, 0.08);
     text-align: center;
-    position: relative;
-    border-radius: 2px;
+    border-radius: 4px;
 }
-.guide-title {
-    font-family: var(--font-heading);
-    font-size: 14px;
-    color: var(--gold);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 700;
-}
-.ordering-guide-v2 p {
-    font-size: 13px;
-    color: var(--light-grey);
-    margin: 0;
-    line-height: 1.6;
-}
+.guide-title { font-family: var(--font-heading); font-size: 13px; color: var(--gold); letter-spacing: 2px; font-weight: 700; display: block; margin-bottom: 6px; }
+.ordering-guide-v2 p { font-size: 12px; color: var(--light-grey); margin: 0; line-height: 1.5; }
 
-/* Bottom Highlight Area */
-.bottom-area { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.highlight-card { padding: 40px; transition: transform 0.3s ease; }
-.highlight-card:hover { transform: translateY(-5px); }
+/* Bottom Area */
+.bottom-area { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.highlight-card { padding: 30px; }
+.section-title.minimal { margin-bottom: 20px; font-size: 20px; }
+.upgrade-info { font-size: 11px; color: var(--light-grey); margin-top: 15px; text-align: center; border-top: 1px solid var(--glass-border); padding-top: 10px; font-style: italic; }
 
 .accent { color: var(--red); font-weight: 700; }
-del { color: var(--light-grey); font-size: 14px; margin-right: 8px; text-decoration: line-through; opacity: 0.6; }
-.upgrade-info { font-size: 12px; color: var(--light-grey); margin-top: 20px; font-style: italic; text-align: center; border-top: 1px solid var(--glass-border); padding-top: 10px; }
+del { color: var(--light-grey); font-size: 13px; margin-right: 6px; opacity: 0.5; }
 
-/* Responsive Design */
+/* Responsive: iPhone 13 Pro & Mobile Optimized */
 @media (max-width: 900px) {
-    .menu-board { grid-template-columns: 1fr; padding: 40px; gap: 50px; }
-    h1 { font-size: 44px; }
-    .luxury-container { padding: 0; }
+    .menu-board { 
+        grid-template-columns: 1fr; 
+        padding: 30px 20px; 
+        gap: 40px; 
+    }
+    .bottom-area { 
+        grid-template-columns: 1fr; 
+        gap: 20px; 
+    }
+    h1 { font-size: 42px; }
+    .main-header { margin-bottom: 40px; }
 }
-@media (max-width: 600px) {
-    .bottom-area { grid-template-columns: 1fr; }
-    .menu-board { padding: 25px; }
+
+@media (max-width: 430px) { /* iPhone 13 Pro (390px) 대응 */
+    body { padding: 20px 15px; }
+    .name { font-size: 16px; }
     .price { font-size: 15px; }
+    .section-title { font-size: 20px; }
+    .category-name { font-size: 17px; }
+    .menu-item { align-items: flex-start; }
 }
