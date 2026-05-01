@@ -6,10 +6,11 @@
     --dark-grey: #1e2228;
     --light-grey: #a0aab5;
     --red: #ff4d4d;
-    --glass-bg: rgba(30, 34, 40, 0.75); /* 가독성을 위해 불투명도 약간 상승 */
+    --glass-bg: rgba(30, 34, 40, 0.75);
     --glass-border: rgba(201, 160, 99, 0.25);
     --font-heading: 'Cinzel', serif;
-    --font-body: 'Noto Serif KR', serif;
+    /* 중국어(SC)를 최우선으로 적용 */
+    --font-body: 'Noto Serif SC', 'Noto Serif KR', serif;
 }
 
 /* Global Styles */
@@ -20,7 +21,7 @@ body {
     font-weight: 300;
     margin: 0;
     padding: 40px 20px;
-    padding-top: calc(40px + env(safe-area-inset-top)); /* 아이폰 노치 대응 */
+    padding-top: calc(40px + env(safe-area-inset-top));
     display: flex;
     justify-content: center;
     line-height: 1.5;
@@ -32,6 +33,38 @@ body {
     width: 100%;
     animation: fadeIn 0.8s ease-out; /* 0.8초 동안 부드럽게 재생 */
 }
+
+/* Language Selector */
+.language-selector {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-family: var(--font-heading);
+}
+
+.lang-btn {
+    text-decoration: none;
+    color: var(--light-grey);
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.lang-btn:hover{
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.lang-btn.active {
+    color: var(--gold);
+    font-weight: 700;
+    transform: scale(0.95); /* 클릭 시 살짝 작  아짐 */
+    transition: transform 0.1s;
+}
+
+.divider { color: var(--glass-border); font-size: 12px; }
 
 /* Glassmorphism Effect */
 .glass-effect {
@@ -51,16 +84,15 @@ body {
 .blue { background: #00a0e9; } .green { background: #009944; }
 .brand-korean { font-weight: 400; font-size: 13px; color: var(--light-grey); letter-spacing: 1px; }
 
-/* [수정] 제목 잘림 방지: 폰트 사이즈와 자간을 유동적으로 조절 */
 h1 { 
     font-family: var(--font-heading); 
-    font-size: clamp(28px, 8.5vw, 60px); /* 화면이 작아지면 글자 크기도 축소 */
+    font-size: clamp(28px, 8.5vw, 60px); 
     margin: 0; 
-    letter-spacing: clamp(2px, 1.2vw, 6px); /* 좁은 화면에서 자간 자동 축소 */
+    letter-spacing: clamp(2px, 1.2vw, 6px); 
     color: #fff; 
     text-align: center;
     width: 100%;
-    word-break: keep-all; /* 단어 단위 줄바꿈 방지 */
+    word-break: keep-all; 
 }
 
 .tagline { 
@@ -72,7 +104,7 @@ h1 {
 }
 .accent-line { width: 80px; height: 1px; background: var(--gold); margin: 25px auto; }
 
-/* Menu Board Layout */
+/* Menu Layout */
 .menu-board {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -101,11 +133,10 @@ h1 {
     padding-bottom: 8px;
 }
 
-/* Menu Item Alignment Fix */
 .menu-item { 
     display: flex; 
     justify-content: space-between; 
-    align-items: flex-start; /* 모바일 정렬 뒤틀림 방지 */
+    align-items: flex-start; 
     margin-bottom: 18px; 
     padding-bottom: 6px; 
     border-bottom: 1px dotted rgba(255,255,255,0.15);
@@ -117,14 +148,13 @@ h1 {
 .desc { font-size: 12px; color: var(--light-grey); margin-top: 2px; display: block; }
 .sub-desc { font-size: 11.5px; color: var(--light-grey); margin-top: 4px; line-height: 1.4; display: block; }
 
-/* 가격 영역 고정 */
 .price { 
     font-family: var(--font-heading); 
     font-weight: 400; 
     color: #fff; 
     font-size: 16px; 
     white-space: nowrap; 
-    flex-shrink: 0; /* 가격이 찌그러지지 않게 고정 */
+    flex-shrink: 0; 
     text-align: right;
     margin-top: 2px;
 }
@@ -136,7 +166,6 @@ h1 {
 }
 .order-notice { color: var(--red); font-size: 10.5px; font-weight: 700; margin-top: 4px; display: block; }
 
-/* Ordering Guide */
 .ordering-guide-v2 {
     margin-top: 30px;
     padding: 20px;
@@ -157,73 +186,18 @@ h1 {
 .accent { color: var(--red); font-weight: 700; }
 del { color: var(--light-grey); font-size: 13px; margin-right: 6px; opacity: 0.5; }
 
-/* Responsive: iPhone 13 Pro & Mobile Optimized */
+/* Responsive */
 @media (max-width: 900px) {
-    .menu-board { 
-        grid-template-columns: 1fr; 
-        padding: 30px 20px; 
-        gap: 40px; 
-    }
-    .bottom-area { 
-        grid-template-columns: 1fr; 
-        gap: 20px; 
-    }
-    /* h1 크기는 위에서 clamp로 조절되므로 별도 지정 불필요 */
+    .menu-board, .bottom-area { grid-template-columns: 1fr; padding: 30px 20px; gap: 40px; }
     .main-header { margin-bottom: 40px; }
 }
 
-@media (max-width: 430px) { /* iPhone 13 Pro 대응 미세 조정 */
+@media (max-width: 430px) {
     body { padding: 20px 15px; }
-    h1 { letter-spacing: 2px; } /* 좁은 화면에서 글자 간격 최소화 */
+    .language-selector { justify-content: center; }
+    h1 { letter-spacing: 2px; }
     .name { font-size: 16px; }
     .price { font-size: 15px; }
-    .section-title { font-size: 20px; }
-    .category-name { font-size: 17px; }
-    .menu-item { align-items: flex-start; }
-}
-
-/* Language Selector Styles */
-.language-selector {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    font-family: var(--font-heading);
-}
-
-.lang-btn {
-    text-decoration: none;
-    color: var(--light-grey);
-    font-size: 14px;
-    letter-spacing: 1px;
-    transition: color 0.3s ease;
-    cursor: pointer;
-}
-
-.lang-btn:hover{
-    color: var(--gold);
-    font-weight: 700;
-}
-
-.lang-btn.active {
-    transform: scale(0.95); /* 클릭 시 살짝 작아짐 */
-    transition: transform 0.1s;
-    color: var(--gold);
-    font-weight: 700;
-}
-
-.divider {
-    color: var(--glass-border);
-    font-size: 12px;
-}
-
-/* 모바일 대응: 중앙 정렬 */
-@media (max-width: 430px) {
-    .language-selector {
-        justify-content: center;
-        margin-bottom: 30px;
-    }
 }
 
 @keyframes fadeIn {
